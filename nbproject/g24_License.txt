@@ -1,0 +1,12 @@
+<#if licenseFirst??>
+${licenseFirst}
+</#if>
+${licensePrefix} Chat System
+${licensePrefix} Lavet af Gruppe 24 - DTU 2016
+${licensePrefix} --------------------
+${licensePrefix} Bao Duy Nguyen, s144880
+${licensePrefix} Magnus Andrias Nielsen, s141899
+${licensePrefix} --------------------
+<#if licenseLast??>
+${licenseLast}
+</#if>
