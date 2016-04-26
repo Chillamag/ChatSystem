@@ -10,6 +10,9 @@ package g24_chatsystem.server;
 
 import g24_chatsystem.server.UI.ChatUser;
 import g24_chatsystem.server.UI.ServerUI;
+import g24_chatsystem.userauthorisation.data.User;
+import g24_chatsystem.userauthorisation.rmi.UserAdmin;
+import java.rmi.Naming;
 import java.util.Scanner;
 
 /**
@@ -23,7 +26,7 @@ public class ServerTUI implements ServerUI {
     
     Scanner scanner;
     String userInput = "";
-    boolean loggetInd = false;
+    boolean loggedIn = false;
     boolean serverRunning = false;
         
     public ServerTUI(ChatUser user) {
@@ -53,7 +56,38 @@ public class ServerTUI implements ServerUI {
                 }
                                 
             }else if(userInput.equals(userLogin)){
-                //Brugeradmin ba = (Brugeradmin) Naming.lookup("rmi://javabog.dk/brugeradmin");
+                UserAdmin ua = (UserAdmin) Naming.lookup("rmi://javabog.dk/brugeradmin");
+                
+                if(loggedIn){
+                    System.out.println("--------------------");
+                    System.out.println("Logged out..");
+                    System.out.println("--------------------");
+                }else{
+                    System.out.println("--------------------");
+                    System.out.println("Brugernavn: ");
+                    userInput = scanner.nextLine();
+                    String usernameInput = userInput;
+                    
+                    System.out.println("--------------------");
+                    System.out.println("Adgangskode: ");
+                    userInput = scanner.nextLine();
+                    String passwordInput = userInput;
+                    
+                    try{
+                        User u = ua.getUser(usernameInput, passwordInput);
+                                
+                        System.out.println("--------------------");
+                        System.out.println("Logged in as: " + u.firstname + " " + u.lastname);
+                        System.out.println("--------------------");
+                        loggedIn = true;
+                                  
+                    }catch(IllegalArgumentException e){
+                        System.out.println("--------------------");
+                        System.out.println("Wrong username or password..");
+                        System.out.println("--------------------");
+                    }
+                    
+                }
                 
             }else if(userInput.equals(exitTUI)){
                 
@@ -80,7 +114,7 @@ public class ServerTUI implements ServerUI {
         }else{
             System.out.println("1 - Stop Server");
         }
-        if(loggetInd == false){
+        if(loggedIn == false){
             System.out.println("2 - Login");
         }else{
             System.out.println("2 - Log Out");
