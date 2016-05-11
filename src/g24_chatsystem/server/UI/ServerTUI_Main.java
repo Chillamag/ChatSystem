@@ -6,16 +6,16 @@
  *  Magnus Andrias Nielsen, s141899
  *  --------------------
  */
-package g24_chatsystem.server;
+package g24_chatsystem.server.UI;
 
 /**
  *
  * @author Magnus A. Nielsen
  */
 
-import g24_chatsystem.server.UI.ChatUser;
-import g24_chatsystem.server.UI.ChatUserImpl;
-import g24_chatsystem.server.UI.ServerUI;
+
+import g24_chatsystem.server.jar.ChatUser;
+import g24_chatsystem.server.ChatUserImpl;
 
 public class ServerTUI_Main {
     

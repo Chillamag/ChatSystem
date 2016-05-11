@@ -25,7 +25,7 @@ public class IncomingReader implements Runnable
         public void run() 
         {
             String[] data;
-            String stream, done = "Done", connect = "Connect", disconnect = "Disconnect", chat = "Chat";
+            String stream, done = "Done", connect = "Connect", disconnect = "Disconnect", chat = "Chat", login = "Login";
 
             try 
             {
@@ -46,6 +46,10 @@ public class IncomingReader implements Runnable
                      else if (data[2].equals(disconnect)) 
                      {
                          userRemove(data[0]);
+                     } 
+                     else if (data[2].equals(login)) 
+                     {
+                         txtChat.append(data[0] + ": " + data[1] + "\n");
                      } 
                      else if (data[2].equals(done)) 
                      {

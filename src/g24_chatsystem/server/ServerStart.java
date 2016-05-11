@@ -8,6 +8,7 @@
  */
 package g24_chatsystem.server;
 
+import g24_chatsystem.server.jar.ClientHandler;
 import static g24_chatsystem.server.ServerFrame.clientOutputStreams;
 //import static g24_chatsystem.server.ServerFrame.serverTxtChat;
 import static g24_chatsystem.server.ServerFrame.serverTxtChat2;
@@ -25,6 +26,7 @@ public class ServerStart implements Runnable {
         @Override
         public void run() 
         {
+            
             clientOutputStreams = new ArrayList();
             users = new ArrayList();  
 

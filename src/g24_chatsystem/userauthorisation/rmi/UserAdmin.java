@@ -6,6 +6,8 @@
  *  Magnus Andrias Nielsen, s141899
  *  --------------------
  */
+
+
 package g24_chatsystem.userauthorisation.rmi;
 
 import g24_chatsystem.userauthorisation.data.User;
@@ -17,6 +19,9 @@ import g24_chatsystem.userauthorisation.data.User;
 
 //import 
 
+
+/*
 public interface UserAdmin extends java.rmi.Remote {
     User getUser(String username, String password) throws java.rmi.RemoteException;
 }
+*/

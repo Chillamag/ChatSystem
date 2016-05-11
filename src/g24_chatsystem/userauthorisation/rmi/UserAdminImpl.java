@@ -6,14 +6,12 @@
  *  Magnus Andrias Nielsen, s141899
  *  --------------------
  */
-package g24_chatsystem.server.UI;
+package g24_chatsystem.userauthorisation.rmi;
 
 /**
  *
  * @author Magnus A. Nielsen
  */
-import g24_chatsystem.server.jar.ChatUser;
-
-public interface ServerUI {
-    void start() throws Exception;
+public class UserAdminImpl {
+    
 }

@@ -2,7 +2,6 @@
  *  Chat System
  *  Lavet af Gruppe 24 - DTU 2016
  *  --------------------
- *  Bao Duy Nguyen, s144880
  *  Magnus Andrias Nielsen, s141899
  *  --------------------
  */
@@ -19,9 +18,9 @@ import java.util.*;
 
 public class ClientFrame extends javax.swing.JFrame 
 {
-    static String username, address = "localhost";
+    static String username, password, address = "localhost";
     static ArrayList<String> users = new ArrayList();
-    int port = 2222;
+    int port = 1108;
     Boolean isConnected = false;
     
     Socket sock;
@@ -91,6 +90,7 @@ public class ClientFrame extends javax.swing.JFrame
         }
         isConnected = false;
         txtUsername.setEditable(true);
+        txtPassword.setEditable(true);
 
     }
     
@@ -140,7 +140,6 @@ public class ClientFrame extends javax.swing.JFrame
             }
         });
 
-        txtPassword.setEditable(false);
         txtPassword.setText("Password");
         txtPassword.setPreferredSize(new java.awt.Dimension(59, 30));
 
@@ -151,7 +150,7 @@ public class ClientFrame extends javax.swing.JFrame
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
+                    .addComponent(txtUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
                     .addComponent(txtPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -174,6 +173,7 @@ public class ClientFrame extends javax.swing.JFrame
         });
 
         btnDisconnect.setText("Disconnect");
+        btnDisconnect.setEnabled(false);
         btnDisconnect.setPreferredSize(new java.awt.Dimension(73, 30));
         btnDisconnect.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -204,7 +204,8 @@ public class ClientFrame extends javax.swing.JFrame
 
         jPanel3.setPreferredSize(new java.awt.Dimension(121, 104));
 
-        txtPort.setText("2222");
+        txtPort.setEditable(false);
+        txtPort.setText("1108");
         txtPort.setPreferredSize(new java.awt.Dimension(59, 30));
         txtPort.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -212,6 +213,7 @@ public class ClientFrame extends javax.swing.JFrame
             }
         });
 
+        txtAddress.setEditable(false);
         txtAddress.setText("localhost");
         txtAddress.setPreferredSize(new java.awt.Dimension(59, 30));
         txtAddress.addActionListener(new java.awt.event.ActionListener() {
@@ -227,7 +229,7 @@ public class ClientFrame extends javax.swing.JFrame
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtPort, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
+                    .addComponent(txtPort, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
                     .addComponent(txtAddress, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -236,7 +238,7 @@ public class ClientFrame extends javax.swing.JFrame
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addComponent(txtPort, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -297,8 +299,12 @@ public class ClientFrame extends javax.swing.JFrame
         } else {
             try {
                writer.println(username + ":" + txtMessage.getText() + ":" + "Chat");
-               //writer.println("Hej");
+               
+               //Edit Username to Firstname after Logging in
+               
                writer.flush(); // flushes the buffer
+               
+               
             } catch (Exception ex) {
                 txtChat.append("Message was not sent. \n");
             }
@@ -314,7 +320,11 @@ public class ClientFrame extends javax.swing.JFrame
         if (isConnected == false) 
         {
             username = txtUsername.getText();
+            password = txtPassword.getText();
             txtUsername.setEditable(false);
+            txtPassword.setEditable(false);
+            btnConnect.setEnabled(false);
+            btnDisconnect.setEnabled(true);
 
             try 
             {
@@ -322,14 +332,27 @@ public class ClientFrame extends javax.swing.JFrame
                 InputStreamReader streamreader = new InputStreamReader(sock.getInputStream());
                 reader = new BufferedReader(streamreader);
                 writer = new PrintWriter(sock.getOutputStream());
-                writer.println(username + ":has connected.:Connect");
-                writer.flush(); 
-                isConnected = true; 
+                
+                //Connect to Jacno Server for Username & Password
+                
+                try{
+                    writer.println(username + ":" + password + ":Login");
+                    writer.flush(); 
+                    
+                }catch(Exception ex){
+                    
+                }
+                
+                //writer.println(username + ":has connected.:Connect");
+                //writer.flush(); 
+                //isConnected = true; 
             } 
             catch (Exception ex) 
             {
                 txtChat.append("Cannot Connect! Try Again. \n");
                 txtUsername.setEditable(true);
+                txtPassword.setEditable(true);
+                btnConnect.setEnabled(true);
             }
             
             ListenThread();
@@ -343,6 +366,8 @@ public class ClientFrame extends javax.swing.JFrame
     private void btnDisconnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDisconnectActionPerformed
         sendDisconnect();
         Disconnect();
+        btnConnect.setEnabled(true);
+        btnDisconnect.setEnabled(false);
     }//GEN-LAST:event_btnDisconnectActionPerformed
 
     private void txtAddressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAddressActionPerformed
