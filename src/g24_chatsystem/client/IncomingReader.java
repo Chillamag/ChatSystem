@@ -31,7 +31,7 @@ public class IncomingReader implements Runnable{
 
                     if (data[2].equals(chat)){
                         txtChat.append(data[0] + ": " + data[1] + "\n");
-                        txtChat.setCaretPosition(txtChat.getDocument().getLength());
+                        //txtChat.setCaretPosition(txtChat.getDocument().getLength());
                     
                     }else if (data[2].equals(connect)){
                         txtChat.removeAll();

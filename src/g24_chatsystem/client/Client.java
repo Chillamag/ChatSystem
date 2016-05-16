@@ -38,7 +38,7 @@ public class Client extends javax.swing.JFrame implements Runnable{
     
     public static void userRemove(String data){
         
-        txtChat.append(data + " is now offline.\n");
+        txtChat.append(data + " is now offline.\n");    
     }
     
     public static void writeUsers(){

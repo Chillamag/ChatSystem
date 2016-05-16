@@ -31,10 +31,7 @@ public class LoginFrame extends javax.swing.JFrame {
     static BufferedReader reader;
     static PrintWriter writer;
     
-    public void ListenThread(){
-        Thread IncomingReader = new Thread(new IncomingReader());
-        IncomingReader.start();
-    }
+
     
     public static void error(int number){
         txtErrorWindow.setVisible(true);
@@ -448,6 +445,9 @@ public class LoginFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPasswordFocusLost
 
     private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
+        
+        //Make the enter botton send
+        //Doesn't work for now
         txtPassword.getRootPane().setDefaultButton(btnLogin);
     }//GEN-LAST:event_txtPasswordActionPerformed
 
