@@ -44,8 +44,6 @@ public class Brugerdatabase implements Serializable {
 			System.out.println("Indlæste serialiseret Brugerdatabase: "+instans);
 		} catch (Exception e) {
                     
-                    System.out.println("sur røv");
-                    
                     
 			instans = new Brugerdatabase();
 			Path path = Paths.get("deltagere.html");

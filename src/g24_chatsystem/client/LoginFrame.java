@@ -20,7 +20,7 @@ import java.util.*;
  */
 public class LoginFrame extends javax.swing.JFrame {
 
-    static String username, password, address = "localhost";
+    static String username, password, address = "52.24.17.151";
     static ArrayList<String> users = new ArrayList();
     int port = 1108;
     Boolean isConnected = false;
@@ -46,6 +46,10 @@ public class LoginFrame extends javax.swing.JFrame {
                 break;
             case 2:
                 txtError.setText("Cannot Connect! Try Again.");
+                break;
+            case 3:
+                txtError.setText("Server down.. Try again later..");
+                btnLogin.setEnabled(false);
                 break;
             default:
                 error(2);
@@ -89,6 +93,17 @@ public class LoginFrame extends javax.swing.JFrame {
         txtErrorWindow.setVisible(false);
         txtErrorWindow.setSize(400, 1);
         txtError.setVisible(false);
+        
+        try{
+            sock = new Socket(address, port);
+            InputStreamReader streamreader = new InputStreamReader(sock.getInputStream());
+            reader = new BufferedReader(streamreader);
+            writer = new PrintWriter(sock.getOutputStream());
+        }catch(Exception ex){
+            error(3);
+        }
+        
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -104,6 +119,8 @@ public class LoginFrame extends javax.swing.JFrame {
         txtUsername = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         title = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         txtPassword = new javax.swing.JPasswordField();
         txtErrorWindow = new javax.swing.JPanel();
@@ -174,7 +191,11 @@ public class LoginFrame extends javax.swing.JFrame {
         title.setBackground(new java.awt.Color(0, 0, 0));
         title.setForeground(new java.awt.Color(241, 248, 233));
         title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        title.setText("Green Chat");
+        title.setText("g24 - Green Chat");
+
+        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\ChillaMag\\Documents\\4. semester - SWT\\Dist Systemer\\Chat System\\NetBeansProjekt\\g24_ChatSystem\\src\\img\\logo1.png")); // NOI18N
+
+        jLabel4.setIcon(new javax.swing.ImageIcon("C:\\Users\\ChillaMag\\Documents\\4. semester - SWT\\Dist Systemer\\Chat System\\NetBeansProjekt\\g24_ChatSystem\\src\\img\\logo1.png")); // NOI18N
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -182,15 +203,24 @@ public class LoginFrame extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(title)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jPanel5.setBackground(new java.awt.Color(51, 105, 30));
@@ -279,7 +309,7 @@ public class LoginFrame extends javax.swing.JFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtErrorWindow, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -418,7 +448,7 @@ public class LoginFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPasswordFocusLost
 
     private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
-        // TODO add your handling code here:
+        txtPassword.getRootPane().setDefaultButton(btnLogin);
     }//GEN-LAST:event_txtPasswordActionPerformed
 
     
@@ -459,10 +489,12 @@ public class LoginFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
-    private javax.swing.JButton btnLogin;
+    private static javax.swing.JButton btnLogin;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;

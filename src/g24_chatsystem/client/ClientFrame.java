@@ -18,7 +18,7 @@ import java.util.*;
 
 public class ClientFrame extends javax.swing.JFrame 
 {
-    static String username, password, address = "localhost";
+    static String username, password, address = "52.24.17.151";
     static ArrayList<String> users = new ArrayList();
     int port = 1108;
     Boolean isConnected = false;
@@ -32,8 +32,7 @@ public class ClientFrame extends javax.swing.JFrame
     
     //--------------------------//
     
-    public void ListenThread() 
-    {
+    public void ListenThread(){
          Thread IncomingReader = new Thread(new IncomingReader());
          IncomingReader.start();
     }
@@ -46,15 +45,13 @@ public class ClientFrame extends javax.swing.JFrame
     
     //--------------------------//
     
-    public static void userRemove(String data) 
-    {
+    public static void userRemove(String data){
          txtChat.append(data + " is now offline.\n");
     }
     
     //--------------------------//
     
-    public static void writeUsers() 
-    {
+    public static void writeUsers(){
          String[] tempList = new String[(users.size())];
          users.toArray(tempList);
          for (String token:tempList) 
@@ -65,11 +62,9 @@ public class ClientFrame extends javax.swing.JFrame
     
     //--------------------------//
     
-    public void sendDisconnect() 
-    {
+    public void sendDisconnect(){
         String bye = (username + ": :Disconnect");
-        try
-        {
+        try{
             writer.println(bye); 
             writer.flush(); 
         } catch (Exception e) 
@@ -80,13 +75,11 @@ public class ClientFrame extends javax.swing.JFrame
 
     //--------------------------//
     
-    public void Disconnect() 
-    {
-        try 
-        {
+    public void Disconnect(){
+        try{
             txtChat.append("Disconnected.\n");
             sock.close();
-        } catch(Exception ex) {
+        }catch(Exception ex) {
             txtChat.append("Failed to disconnect. \n");
         }
         isConnected = false;
@@ -95,8 +88,7 @@ public class ClientFrame extends javax.swing.JFrame
 
     }
     
-    public ClientFrame() 
-    {
+    public ClientFrame(){
         initComponents();
     }
     
@@ -236,7 +228,7 @@ public class ClientFrame extends javax.swing.JFrame
         });
 
         txtAddress.setEditable(false);
-        txtAddress.setText("localhost");
+        txtAddress.setText("52.24.17.151");
         txtAddress.setPreferredSize(new java.awt.Dimension(59, 30));
         txtAddress.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -373,7 +365,7 @@ public class ClientFrame extends javax.swing.JFrame
                     writer.flush(); 
                     
                 }catch(Exception ex){
-                    
+                    txtChat.append("Unexpected error. \n");
                 }
                 
                 //writer.println(username + ":has connected.:Connect");

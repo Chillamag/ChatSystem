@@ -17,7 +17,7 @@ import java.util.*;
  */
 public class Client extends javax.swing.JFrame implements Runnable{
 
-    static String clientFirstName, clientUsername, clientPassword, address = "localhost";
+    static String clientFirstName, clientUsername, clientPassword, address = "52.24.17.151";
     static ArrayList<String> users = new ArrayList();
     int port = 1108;
     Boolean isConnected = false;
@@ -93,11 +93,12 @@ public class Client extends javax.swing.JFrame implements Runnable{
                     writer.flush(); 
                     
                 }catch(Exception ex){
-                    
+                    txtChat.append("Unexpected error. \n");
                 }
             
         }catch(Exception ex){
             txtChat.append("Cannot Connect! Try Again. \n");
+            ex.printStackTrace();
             
         }
         ListenThread();
@@ -117,10 +118,10 @@ public class Client extends javax.swing.JFrame implements Runnable{
         jLabel4 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         boxOnlineStatus = new javax.swing.JComboBox<>();
-        jPanel7 = new javax.swing.JPanel();
         txtFirstname = new javax.swing.JLabel();
         txtUsername = new javax.swing.JLabel();
         btnDisconnect = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         btnSend = new javax.swing.JButton();
         txtMessage = new javax.swing.JTextField();
@@ -129,6 +130,7 @@ public class Client extends javax.swing.JFrame implements Runnable{
         txtChat = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Green Chat - Client");
 
         jPanel1.setBackground(new java.awt.Color(241, 248, 233));
 
@@ -136,7 +138,7 @@ public class Client extends javax.swing.JFrame implements Runnable{
 
         jLabel1.setForeground(new java.awt.Color(241, 248, 233));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("g24 - Green Chat - Client");
+        jLabel1.setText("g24 - Green Chat");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -190,17 +192,6 @@ public class Client extends javax.swing.JFrame implements Runnable{
             }
         });
 
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 58, Short.MAX_VALUE)
-        );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
         txtFirstname.setForeground(new java.awt.Color(0, 0, 0));
         txtFirstname.setText("Firstname");
 
@@ -215,14 +206,18 @@ public class Client extends javax.swing.JFrame implements Runnable{
             }
         });
 
+        jLabel2.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\ChillaMag\\Documents\\4. semester - SWT\\Dist Systemer\\Chat System\\NetBeansProjekt\\g24_ChatSystem\\src\\img\\profilepic1.png")); // NOI18N
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(txtFirstname)
@@ -230,16 +225,16 @@ public class Client extends javax.swing.JFrame implements Runnable{
                         .addComponent(boxOnlineStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(txtUsername)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 158, Short.MAX_VALUE)
                         .addComponent(btnDisconnect)))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtFirstname)
@@ -265,6 +260,11 @@ public class Client extends javax.swing.JFrame implements Runnable{
         txtMessage.setColumns(3);
         txtMessage.setForeground(new java.awt.Color(0, 0, 0));
         txtMessage.setToolTipText("");
+        txtMessage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtMessageActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -289,6 +289,7 @@ public class Client extends javax.swing.JFrame implements Runnable{
 
         jPanel6.setBackground(new java.awt.Color(85, 139, 47));
 
+        txtChat.setEditable(false);
         txtChat.setBackground(new java.awt.Color(241, 248, 233));
         txtChat.setColumns(20);
         txtChat.setForeground(new java.awt.Color(0, 0, 0));
@@ -301,7 +302,7 @@ public class Client extends javax.swing.JFrame implements Runnable{
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE)
+                .addComponent(jScrollPane1)
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
@@ -390,6 +391,12 @@ public class Client extends javax.swing.JFrame implements Runnable{
         Disconnect();
     }//GEN-LAST:event_btnDisconnectActionPerformed
 
+    private void txtMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMessageActionPerformed
+        
+        getRootPane().setDefaultButton(btnSend);
+        
+    }//GEN-LAST:event_txtMessageActionPerformed
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -397,6 +404,7 @@ public class Client extends javax.swing.JFrame implements Runnable{
     private javax.swing.JButton btnDisconnect;
     private javax.swing.JButton btnSend;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -404,7 +412,6 @@ public class Client extends javax.swing.JFrame implements Runnable{
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JTextArea txtChat;
     private javax.swing.JLabel txtFirstname;

@@ -2,7 +2,6 @@
  *  Chat System
  *  Lavet af Gruppe 24 - DTU 2016
  *  --------------------
- *  Bao Duy Nguyen, s144880
  *  Magnus Andrias Nielsen, s141899
  *  --------------------
  */
@@ -22,7 +21,7 @@ import static g24_chatsystem.client.Client.writeUsers;
 public class IncomingReader implements Runnable{
         @Override
         public void run(){
-            String[] data;
+            String[] data; 
             String stream, done = "Done", connect = "Connect", disconnect = "Disconnect", 
                     chat = "Chat", login = "Login", firstLogin = "firstLogin", loginError = "LoginError";
 
